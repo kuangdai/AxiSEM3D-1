@@ -106,6 +106,7 @@ void Geometric3D::setUndulationToQuad(const eigen::DColX &undulation,
 
 #include "StructuredGridG3D.hpp"
 #include "Ellipticity.hpp"
+#include "Crust1G3D.hpp"
 #include "sg_tools.hpp"
 
 // build from inparam
@@ -193,6 +194,22 @@ buildInparam(const ExodusMesh &exodusMesh, const LocalMesh &localMesh,
         }
         ellipticityAdded = true;
         return std::make_shared<const Ellipticity>(modelName);
+    } else if (className == "Crust1G3D") {
+        double rSurf = gm.get<double>(root + ":surface_radius");
+        double rMoho = gm.get<double>(root + ":moho_radius");
+        double rBase = gm.get<double>(root + ":base_radius");
+        bool includeSediment = gm.get<bool>(root + ":include_sediment");
+        bool includeIce = gm.get<bool>(root + ":include_ice");
+        bool ellipticity = gm.get<bool>(root + ":ellipticity");
+        double surfaceFactor = gm.get<double>(root + ":surface_factor");
+        double mohoFactor = gm.get<double>(root + ":moho_factor");
+        int gaussianOrder = gm.get<int>(root + ":gaussian_order");
+        double gaussianDev = gm.get<double>(root + ":gaussian_deviation");
+        return std::make_shared
+        <const Crust1G3D>(modelName, rSurf, rMoho, rBase,
+                          includeSediment, includeIce, ellipticity,
+                          surfaceFactor, mohoFactor,
+                          gaussianOrder, gaussianDev);
     }
     
     // unknown class
