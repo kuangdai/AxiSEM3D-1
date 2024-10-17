@@ -132,6 +132,7 @@ std::string Crust1O3D::verbose() const {
     std::stringstream ss;
     ss << boxSubTitle(0, mModelName + " ", '~');
     ss << boxEquals(2, 22, "class name", "Crust1O3D");
+    ss << boxEquals(2, 22, "water density", mWaterDensity);
     ss << boxEquals(2, 22, "include ice as water", mIncludeIceAsWater);
     ss << boxEquals(2, 22, "ellipticity correction", mEllipticity);
     return ss.str();
