@@ -5,7 +5,7 @@ python -m salvus_mesh_lite.interface AxiSEM --basic.model prem_ani --basic.perio
 
 # the 3D model S362ANI is downloaded from IRIS EMC (already done in input folders)
 
-# the 3D crustal models based on Crust 1.0 are generated using gen_crust1.ipynb (already done in input_with_3d_crust)
+# the 3D crustal models based on Crust 1.0 are built-in
 
 # to run the simulations, copy the compiled binary (axisem3d) here and do
 . run_with_1d_crust.sh  # takes about 1 hour using 4 cores
