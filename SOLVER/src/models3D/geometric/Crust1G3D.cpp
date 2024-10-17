@@ -146,6 +146,7 @@ bool Crust1G3D::getUndulation(const eigen::DMatX3 &spz,
     coordsFromMeshToModel(spz, false, false, mEllipticity, false,
                           false, false, mModelName);
     int nCardinals = (int)spz.rows();
+    undulation = eigen::DColX::Zero(nCardinals);
     for (int ipnt = 0; ipnt < nCardinals; ipnt++) {
         double lat = crdGrid(ipnt, 0);
         double lon = crdGrid(ipnt, 1);

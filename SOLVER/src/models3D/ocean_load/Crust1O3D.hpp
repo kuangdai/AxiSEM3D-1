@@ -14,8 +14,8 @@
 class Crust1O3D: public OceanLoad3D {
 public:
     // constructor
-    Crust1O3D(const std::string &modelName, bool includeIceAsWater,
-              bool ellipticity);
+    Crust1O3D(const std::string &modelName, double mWaterDensity,
+              bool includeIceAsWater, bool ellipticity);
     
 private:
     // get sum(rho * depth)
@@ -31,6 +31,9 @@ private:
     const int sNLayer = 9;
     const int sNLat = 180;
     const int sNLon = 360;
+    
+    // water density
+    const double mWaterDensity;
     
     // treat ice as water load
     const bool mIncludeIceAsWater;

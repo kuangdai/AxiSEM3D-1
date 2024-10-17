@@ -173,10 +173,12 @@ buildInparam(const ExodusMesh &exodusMesh, const LocalMesh &localMesh,
                                   lengthUnit, angleUnit, dataVarName, factor,
                                   superOnly);
     } else if (className == "Crust1O3D") {
+        bool waterDensity = gm.get<bool>(root + ":water_density");
         bool includeIceAsWater = gm.get<bool>(root + ":include_ice_as_water");
         bool ellipticity = gm.get<bool>(root + ":ellipticity");
         return std::make_shared
-        <const Crust1O3D>(modelName, includeIceAsWater, ellipticity);
+        <const Crust1O3D>(modelName, waterDensity,
+                          includeIceAsWater, ellipticity);
     } else {
         // other models
     }

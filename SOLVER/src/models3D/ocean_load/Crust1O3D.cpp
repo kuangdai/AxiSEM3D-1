@@ -13,9 +13,11 @@
 #include "c1_tools.hpp"
 
 // constructor
-Crust1O3D::Crust1O3D(const std::string &modelName, bool includeIceAsWater,
-                     bool ellipticity):
-OceanLoad3D(modelName), mIncludeIceAsWater(includeIceAsWater),
+Crust1O3D::Crust1O3D(const std::string &modelName, double waterDensity,
+                     bool includeIceAsWater, bool ellipticity):
+OceanLoad3D(modelName),
+mWaterDensity(waterDensity),
+mIncludeIceAsWater(includeIceAsWater),
 mEllipticity(ellipticity) {
     // read raw data
     int nrow = sNLat * sNLon;
@@ -90,6 +92,7 @@ bool Crust1O3D::getSumRhoDepth(const eigen::DMatX3 &spz,
                           false, false, mModelName);
     
     int nCardinals = (int)spz.rows();
+    sumRhoDepth = eigen::DColX::Zero(nCardinals);
     for (int ipnt = 0; ipnt < nCardinals; ipnt++) {
         double lat = crdGrid(ipnt, 0);
         double lon = crdGrid(ipnt, 1);
@@ -118,7 +121,7 @@ bool Crust1O3D::getSumRhoDepth(const eigen::DMatX3 &spz,
         depth += mDepth(llat1, llon0) * wlat1 * wlon0;
         depth += mDepth(llat0, llon1) * wlat0 * wlon1;
         depth += mDepth(llat1, llon1) * wlat1 * wlon1;
-        sumRhoDepth(ipnt) = depth;
+        sumRhoDepth(ipnt) = depth * mWaterDensity;
     }
     return true;
 }

@@ -119,7 +119,7 @@ mEllipticity(ellipticity) {
     // find all z-coordinates on the axis
     if (mpi::root()) {
         const auto &sz = exodusMesh.getNodalCoords();
-        for (int i = 0; i < sz.size(); i++) {
+        for (int i = 0; i < sz.rows(); i++) {
             double s = sz(i, 0);
             double z = sz(i, 1);
             if (s <= exodusMesh.getGlobalVariable("dist_tolerance") && z > 0)
